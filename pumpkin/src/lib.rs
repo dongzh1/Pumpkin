@@ -579,7 +579,13 @@ impl PumpkinServer {
                             }
                         }
                     }
-                    Err(e) => error!("UDP socket error: {e}"),
+                    Err(e) => {
+                        error!("UDP socket error: {e}");
+                        // Back off so a persistent socket error (e.g. a surfaced
+                        // ICMP "port unreachable" on Linux) can't spin the worker,
+                        // mirroring the Java/TCP accept arm above.
+                        sleep(Duration::from_millis(50)).await;
+                    }
                 }
             },
 
