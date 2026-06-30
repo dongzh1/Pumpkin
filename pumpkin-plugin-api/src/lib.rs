@@ -44,7 +44,7 @@ pub mod scheduler;
 
 pub mod command {
     pub use crate::wit::pumpkin::plugin::command::{
-        Command, CommandError, CommandNode, CommandSender, ConsumedArgs,
+        Arg, ArgumentType, Command, CommandError, CommandNode, CommandSender, ConsumedArgs, StringType,
     };
 }
 
@@ -53,9 +53,16 @@ pub use wit::pumpkin::plugin::{
     context::{Context, Server},
     data_components, entity,
     entity_types::EntityType,
-    gui, i18n, java_dialogs, java_packets, particles, permission, player, scoreboard, server, text,
+    event::{self as events_wit, EventType},
+    gui, i18n, item_stack, java_dialogs, java_packets, particles, permission, player, scoreboard, server, text,
+    uuid,
     world,
 };
+
+// Convenience re-exports for commonly used types
+pub use wit::pumpkin::plugin::item_stack::ItemStack;
+pub use events::EventHandler;
+pub use events::FromIntoEvent;
 
 pub mod java_dialog {
     pub use crate::wit::pumpkin::plugin::java_dialogs::{ActionButton, DialogBody, DialogType};
